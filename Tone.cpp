@@ -23,7 +23,7 @@ void tone(uint32_t pin, uint16_t freq, uint32_t duration)
 	uint32_t i,prescaler, compare, nrf_pin, err_code = NRF_SUCCESS;
 	uint8_t channel, softdevice_enabled;
 	
-	channel = GPIOTE_Channel_Find();
+	channel = gpioteChannelFind();
 	if(channel == UNAVAILABLE_GPIOTE_CHANNEL)
 	{
 		return;
@@ -67,7 +67,7 @@ void tone(uint32_t pin, uint16_t freq, uint32_t duration)
 		//pin_state = 0;
 		//use ppi and gpiote_task 
 		tone_channel = channel;
-		GPIOTE_Channel_Set(channel);
+		gpioteChannelSet(channel);
 		nrf_gpiote_task_config(channel, nrf_pin, NRF_GPIOTE_POLARITY_TOGGLE, NRF_GPIOTE_INITIAL_VALUE_LOW);
 		//configure PPI
 		err_code = sd_softdevice_is_enabled(&softdevice_enabled);
@@ -131,7 +131,7 @@ void noTone(uint32_t pin)
 			unlinkInterrupt(TIMER2_IRQn);
 			NVIC_DisableIRQ(TIMER2_IRQn); 
 			//uconfig GPIOTE channel
-			GPIOTE_Channel_Clean(tone_channel);
+			gpioteChannelClean(tone_channel);
 			tone_channel = 255;
 			
 			err_code = sd_softdevice_is_enabled(&softdevice_enabled);
