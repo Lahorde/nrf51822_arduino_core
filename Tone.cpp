@@ -100,7 +100,7 @@ void tone(uint32_t pin, uint16_t freq, uint32_t duration)
 		NRF_TIMER2->INTENCLR = 0xFFFFFFFF;
 		NRF_TIMER2->INTENSET = (TIMER_INTENSET_COMPARE0_Enabled << TIMER_INTENSET_COMPARE0_Pos);
 		//open IRQ
-		linkInterrupt(TIMER2_IRQn, TIMER2_handler);
+		IntController_linkInterrupt(TIMER2_IRQn, TIMER2_handler);
 		NVIC_EnableIRQ(TIMER2_IRQn);
 		NRF_TIMER2->TASKS_START = 1;
 	}
@@ -128,7 +128,7 @@ void noTone(uint32_t pin)
 		if(nrf_pin == tone_pin )
 		{	//stop TIMER2
 			NRF_TIMER2->TASKS_STOP = 1;
-			unlinkInterrupt(TIMER2_IRQn);
+			IntController_unlinkInterrupt(TIMER2_IRQn);
 			NVIC_DisableIRQ(TIMER2_IRQn); 
 			//uconfig GPIOTE channel
 			gpioteChannelClean(tone_channel);

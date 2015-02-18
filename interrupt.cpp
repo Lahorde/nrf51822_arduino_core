@@ -142,7 +142,7 @@ void attachInterrupt(uint32_t arg_u32_pin, ext_it_handler_t arg_pf_itHandler, EP
 							| (nrf_pin << GPIOTE_CONFIG_PSEL_Pos)
 							| (GPIOTE_CONFIG_MODE_Event << GPIOTE_CONFIG_MODE_Pos);
 	enableGPIOTEInterrupt(channel);
-	linkInterrupt(GPIOTE_IRQn, GPIOTE_handler);
+	IntController_linkInterrupt(GPIOTE_IRQn, GPIOTE_handler);
 
 	err_code = sd_softdevice_is_enabled(&softdevice_enabled);
 	APP_ERROR_CHECK(err_code);
@@ -212,7 +212,7 @@ void detachInterrupt(uint32_t arg_u32_pin )
 			err_code = sd_nvic_DisableIRQ(GPIOTE_IRQn);
 			APP_ERROR_CHECK(err_code);
 		}
-		unlinkInterrupt(GPIOTE_IRQn);
+		IntController_unlinkInterrupt(GPIOTE_IRQn);
 	}
 }
 
