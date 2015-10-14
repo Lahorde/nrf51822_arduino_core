@@ -13,8 +13,6 @@
  *****************************************************************************/
 
 #include <flash_memory.h>
-#include <delay.h>
-#include <logger.h>
 #include "application_config.h"
 extern "C" {
 #include "app_error.h"
