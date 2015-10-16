@@ -139,6 +139,8 @@ void UART0_StartTx(uint32_t BaudRate, uint32_t tx_pin )
 	NRF_UART0->BAUDRATE         = (baud << UART_BAUDRATE_BAUDRATE_Pos);
 	NRF_UART0->ENABLE           = (UART_ENABLE_ENABLE_Enabled << UART_ENABLE_ENABLE_Pos);
 	NRF_UART0->TASKS_STARTTX    = 1;
+
+	UART0_State = UART0_BeforeFirstTX;
 }
 
 
